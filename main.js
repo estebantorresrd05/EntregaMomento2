@@ -1,43 +1,86 @@
-var listaEstudiantes = [];
-var contadorId = 1;
-var inputNombre = document.getElementById("inputNombre");
-var inputEdad = document.getElementById("inputEdad");
-var selectGrado = document.getElementById("selectGrado");
-var selectEstado = document.getElementById("selectEstado");
-var btnAgregar = document.getElementById("btnAgregar");
-var btnLimpiar = document.getElementById("btnLimpiar");
-var btnFiltrar = document.getElementById("btnFiltrar");
-var btnMostrarTodos = document.getElementById("btnMostrarTodos");
-var inputBuscar = document.getElementById("inputBuscar");
-var selectFiltroGrado = document.getElementById("selectFiltroGrado");
-var selectFiltroEstado = document.getElementById("selectFiltroEstado");
-var areaResultados = document.getElementById("areaResultados");
-var contadorEstudiantes = document.getElementById("contadorEstudiantes");
-var mensajeError = document.getElementById("mensajeError");
+let listaEstudiantes = [];
+let contadorId = 1;
 
-
+const inputNombre = document.getElementById("inputNombre");
+const inputEdad = document.getElementById("inputEdad");
+const selectGrado = document.getElementById("selectGrado");
+const selectEstado = document.getElementById("selectEstado");
+const btnAgregar = document.getElementById("btnAgregar");
+const btnLimpiar = document.getElementById("btnLimpiar");
+const btnFiltrar = document.getElementById("btnFiltrar");
+const btnMostrarTodos = document.getElementById("btnMostrarTodos");
+const inputBuscar = document.getElementById("inputBuscar");
+const selectFiltroGrado = document.getElementById("selectFiltroGrado");
+const selectFiltroEstado = document.getElementById("selectFiltroEstado");
+const areaResultados = document.getElementById("areaResultados");
+const contadorEstudiantes = document.getElementById("contadorEstudiantes");
+const mensajeError = document.getElementById("mensajeError");
 
 function agregarEstudiante() {
 
-  var nombre = inputNombre.value.trim();
-  var edad = inputEdad.value.trim();
-  var grado = selectGrado.value;
-  var estado = selectEstado.value;
+  const nombre = inputNombre.value.trim();
 
-  if (nombre === "" || edad === "" || grado === "") {
+  const edad = inputEdad.value.trim();
+
+  const grado = selectGrado.value;
+
+  const estado = selectEstado.value;
+
+
+  if (
+    nombre === "" ||
+    edad === "" ||
+    grado === ""
+  ) {
+
+    mensajeError.textContent =
+      "Complete todos los campos";
+
     mensajeError.style.display = "block";
+
     return;
   }
 
+
+  if (edad < 1 || edad > 100) {
+
+    mensajeError.textContent =
+      "Ingrese una edad valida";
+
+    mensajeError.style.display = "block";
+
+    return;
+  }
+
+
+  const existe = listaEstudiantes.some(
+    estudiante =>
+      estudiante.nombre.toLowerCase() ===
+      nombre.toLowerCase()
+  );
+
+  if (existe) {
+
+    mensajeError.textContent =
+      "Ese estudiante ya existe";
+
+    mensajeError.style.display = "block";
+
+    return;
+  }
+
+
   mensajeError.style.display = "none";
 
-  var nuevoEstudiante = {
+
+  const nuevoEstudiante = {
     id: contadorId,
     nombre: nombre,
     edad: edad,
     grado: grado,
     estado: estado
   };
+
 
   listaEstudiantes.push(nuevoEstudiante);
 
@@ -49,16 +92,19 @@ function agregarEstudiante() {
 }
 
 
+
 function mostrarEstudiantes(arreglo) {
 
   areaResultados.innerHTML = "";
 
   contadorEstudiantes.textContent =
-    "Total: " + arreglo.length + " estudiante(s)";
+    `Total: ${arreglo.length} estudiante(s)`;
 
-  if (arreglo.length === 0) {
 
-    var mensaje = document.createElement("p");
+  if (!arreglo.length) {
+
+    const mensaje =
+      document.createElement("p");
 
     mensaje.textContent =
       "No se encontraron estudiantes.";
@@ -68,39 +114,51 @@ function mostrarEstudiantes(arreglo) {
     return;
   }
 
-  var tabla = document.createElement("table");
 
-  tabla.innerHTML = 
-  `<thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Grado</th>
-            <th>Estado</th>
-            <th>Acción</th>
-        </tr>
-    </thead>`
-    ;
+  const tabla =
+    document.createElement("table");
 
-  var cuerpo = document.createElement("tbody");
 
-  for (var i = 0; i < arreglo.length; i++) {
+  tabla.innerHTML = `
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Grado</th>
+        <th>Estado</th>
+        <th>Accion</th>
+      </tr>
+    </thead>
+  `;
 
-    var estudiante = arreglo[i];
 
-    var fila = document.createElement("tr");
+  const cuerpo =
+    document.createElement("tbody");
 
-    fila.innerHTML =
-      "<td>" + estudiante.id + "</td>" +
-      "<td>" + estudiante.nombre + "</td>" +
-      "<td>" + estudiante.edad + "</td>" +
-      "<td>" + estudiante.grado + "</td>" +
-      "<td>" + estudiante.estado + "</td>" +
-      "<td><button onclick='eliminarEstudiante(" + estudiante.id + ")'>Eliminar</button></td>";
+
+  arreglo.forEach((estudiante) => {
+
+    const fila =
+      document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${estudiante.id}</td>
+      <td>${estudiante.nombre}</td>
+      <td>${estudiante.edad}</td>
+      <td>${estudiante.grado}</td>
+      <td>${estudiante.estado}</td>
+      <td>
+        <button onclick="eliminarEstudiante(${estudiante.id})">
+          Eliminar
+        </button>
+      </td>
+    `;
 
     cuerpo.appendChild(fila);
-  }
+
+  });
+
 
   tabla.appendChild(cuerpo);
 
@@ -111,11 +169,11 @@ function mostrarEstudiantes(arreglo) {
 
 function eliminarEstudiante(idEliminar) {
 
-  listaEstudiantes = listaEstudiantes.filter(function(estudiante) {
-
-    return estudiante.id !== idEliminar;
-
-  });
+  listaEstudiantes =
+    listaEstudiantes.filter(
+      estudiante =>
+        estudiante.id !== idEliminar
+    );
 
   mostrarEstudiantes(listaEstudiantes);
 }
@@ -124,26 +182,29 @@ function eliminarEstudiante(idEliminar) {
 
 function filtrarEstudiantes() {
 
-  var textoBuscar =
+  const textoBuscar =
     inputBuscar.value.toLowerCase();
 
-  var gradoFiltro =
+  const gradoFiltro =
     selectFiltroGrado.value;
 
-  var estadoFiltro =
+  const estadoFiltro =
     selectFiltroEstado.value;
 
-  var resultado =
-    listaEstudiantes.filter(function(estudiante) {
 
-      var cumpleNombre =
-        estudiante.nombre.toLowerCase().includes(textoBuscar);
+  const resultado =
+    listaEstudiantes.filter((estudiante) => {
 
-      var cumpleGrado =
+      const cumpleNombre =
+        estudiante.nombre
+          .toLowerCase()
+          .includes(textoBuscar);
+
+      const cumpleGrado =
         gradoFiltro === "" ||
         estudiante.grado === gradoFiltro;
 
-      var cumpleEstado =
+      const cumpleEstado =
         estadoFiltro === "" ||
         estudiante.estado === estadoFiltro;
 
@@ -155,6 +216,7 @@ function filtrarEstudiantes() {
 
     });
 
+
   mostrarEstudiantes(resultado);
 }
 
@@ -163,8 +225,11 @@ function filtrarEstudiantes() {
 function limpiarFormulario() {
 
   inputNombre.value = "";
+
   inputEdad.value = "";
+
   selectGrado.value = "";
+
   selectEstado.value = "Activo";
 
   mensajeError.style.display = "none";
@@ -189,13 +254,16 @@ btnFiltrar.addEventListener(
 
 btnMostrarTodos.addEventListener(
   "click",
-  function() {
+  () => {
 
     inputBuscar.value = "";
+
     selectFiltroGrado.value = "";
+
     selectFiltroEstado.value = "";
 
     mostrarEstudiantes(listaEstudiantes);
+
   }
 );
 
