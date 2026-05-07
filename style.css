@@ -1,0 +1,126 @@
+body {
+font-family: Arial, sans-serif;
+background-color: #f0f4f8;
+margin: 0;
+padding: 20px;
+}
+
+.contenedor {
+max-width: 750px;
+margin: auto;
+background-color: white;
+padding: 25px;
+border-radius: 10px;
+}
+
+h1 {
+text-align: center;
+color: #2c5f8a;
+}
+
+h2 {
+color: #2c5f8a;
+}
+
+.formulario,
+.filtros,
+.resultados {
+margin-top: 20px;
+padding: 20px;
+border-radius: 8px;
+}
+
+.formulario {
+background-color: #eaf2fb;
+}
+
+.filtros {
+background-color: #fff7e6;
+}
+
+.resultados {
+background-color: #f8f9fa;
+}
+
+label {
+display: block;
+margin-top: 10px;
+font-weight: bold;
+}
+
+input,
+select {
+width: 100%;
+padding: 8px;
+margin-top: 5px;
+border-radius: 5px;
+border: 1px solid #aaa;
+box-sizing: border-box;
+}
+
+.filaBotones {
+display: flex;
+gap: 10px;
+margin-top: 15px;
+}
+
+button {
+padding: 10px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+}
+
+#btnAgregar {
+background-color: #2c5f8a;
+color: white;
+}
+
+#btnLimpiar {
+background-color: #777;
+color: white;
+}
+
+#btnFiltrar {
+background-color: #e67e22;
+color: white;
+}
+
+#btnMostrarTodos {
+background-color: #27ae60;
+color: white;
+}
+
+#mensajeError {
+color: red;
+display: none;
+font-size: 14px;
+}
+
+#contadorEstudiantes {
+font-style: italic;
+color: #555;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 10px;
+}
+
+table th {
+background-color: #2c5f8a;
+color: white;
+}
+
+table th,
+table td {
+padding: 10px;
+border: 1px solid #ccc;
+}
+
+#mensajeVacio {
+text-align: center;
+color: gray;
+}

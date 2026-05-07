@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Estudiantes</title>
+
+  
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="contenedor">
+
+
+<h1> Registro de Estudiantes</h1>
+
+
+
+<div class="formulario">
+
+  <h2>Agregar Estudiante</h2>
+
+  <label for="inputNombre">Nombre completo:</label>
+  <input type="text" id="inputNombre" placeholder="Ej: Juan Pérez">
+
+  <label for="inputEdad">Edad:</label>
+  <input type="number" id="inputEdad" placeholder="Ej: 17">
+
+  <label for="selectGrado">Grado:</label>
+  <select id="selectGrado">
+    <option value="">Seleccione</option>
+    <option value="Décimo">Décimo</option>
+    <option value="Undécimo">Undécimo</option>
+    <option value="Primero">Primero Técnico</option>
+    <option value="Segundo">Segundo Técnico</option>
+  </select>
+
+  <label for="selectEstado">Estado:</label>
+  <select id="selectEstado">
+    <option value="Activo">Activo</option>
+    <option value="Inactivo">Inactivo</option>
+  </select>
+
+  <p id="mensajeError">
+  Complete todos los campos
+  </p>
+
+  <div class="filaBotones">
+    <button id="btnAgregar">Agregar</button>
+    <button id="btnLimpiar">Limpiar</button>
+  </div>
+
+</div>
+
+
+
+<div class="filtros">
+
+  <h2> Buscar Estudiantes</h2>
+
+  <input type="text" id="inputBuscar" placeholder="Buscar por nombre">
+
+  <select id="selectFiltroGrado">
+    <option value="">Todos los grados</option>
+    <option value="Décimo">Décimo</option>
+    <option value="Undécimo">Undécimo</option>
+    <option value="Primero">Primero Técnico</option>
+    <option value="Segundo">Segundo Técnico</option>
+  </select>
+
+  <select id="selectFiltroEstado">
+    <option value="">Todos los estados</option>
+    <option value="Activo">Activo</option>
+    <option value="Inactivo">Inactivo</option>
+  </select>
+
+  <div class="filaBotones">
+    <button id="btnFiltrar">Filtrar</button>
+    <button id="btnMostrarTodos">Ver Todos</button>
+  </div>
+
+</div>
+
+
+
+<div class="resultados">
+
+  <h2> Lista de Estudiantes</h2>
+
+  <p id="contadorEstudiantes">
+    Total: 0 estudiantes
+  </p>
+
+  <div id="areaResultados">
+    <p id="mensajeVacio">
+      No hay estudiantes registrados.
+    </p>
+  </div>
+
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>
